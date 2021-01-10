@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: "."
+      target: base
+    environment:
+      SERVER_DATABASE_NAME: test_db
+      PRISMA_DATABASE_URL: mysql://root:root@database:3306/test_db?schema=public
+    ports:
+      - 9999:80
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+    networks:
+      - test_vm
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PORT=3306
+    volumes:
+      - database:/var/lib/mysql
+    expose:
+      - 3307
+    ports:
+      - 3307:3306
+    networks:
+      - test_vm
+
+volumes:
+  database:
+
+networks:
+  test_vm:

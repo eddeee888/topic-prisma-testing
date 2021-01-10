@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  server:
+    build:
+      context: "."
+      target: base
+    command: yarn start
+    environment:
+      PRISMA_DATABASE_URL: mysql://root:root@database:3306/development_db?schema=public
+    expose:
+      - 80
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+    networks:
+      - dev_vm
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PORT=3306
+    volumes:
+      - database:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    networks:
+      - dev_vm
+
+volumes:
+  database:
+
+networks:
+  dev_vm:
