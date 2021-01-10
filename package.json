@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "test": "jest --watchAll -i",
+    "test": "jest -i",
     "start": "ts-node src/server.ts",
     "prisma:up": "prisma migrate up --experimental --create-db --auto-approve",
     "prisma:generate": "prisma generate",
@@ -16,8 +16,8 @@
     "docker:dev:down": "docker-compose down",
     "docker:dev:prisma:up": "docker-compose run --rm server yarn prisma:up",
     "docker:test:build": "docker-compose -f docker-compose.test.yml build --no-cache",
-    "docker:test:prepare": "docker-compose -f docker-compose.test.yml run --rm server yarn ts-node src/prisma/reset.ts; docker-compose -f docker-compose.test.yml run --rm server yarn prisma:up",
-    "docker:test:run": "docker-compose -f docker-compose.test.yml up -d && docker-compose -f docker-compose.test.yml run --rm server ./scripts/wait-for-it.sh database:3306 -- yarn test && yarn docker:test:prepare; docker-compose -f docker-compose.test.yml down"
+    "docker:test:prepare": "docker-compose -f docker-compose.test.yml run --rm server ./scripts/wait-for-it.sh database:3306 -- yarn ts-node src/prisma/reset.ts; docker-compose -f docker-compose.test.yml run --rm server yarn prisma:up",
+    "docker:test:run": "docker-compose -f docker-compose.test.yml run --rm server ./scripts/wait-for-it.sh database:3306 -- yarn test && yarn docker:test:prepare"
   },
   "dependencies": {
     "express": "4.17.1",

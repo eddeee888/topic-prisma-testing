@@ -1,0 +1,32 @@
+name: CI
+on:
+  push:
+    branches-ignore:
+      # Ignore the commits that are created when PR is merged into master
+      - "master"
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.4.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      
+      - name: Build test containers
+        run: yarn docker:test:build
+
+      - name: Prepare database
+        run: yarn docker:test:prepare
+
+      - name: Test app
+        run: yarn docker:test:run
