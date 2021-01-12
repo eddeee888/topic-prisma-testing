@@ -11,6 +11,14 @@ This repo has examples of how to do Prisma unit and functional testing with Node
 - Node 12.x
 - yarn or npm
 
+## Get started
+
+Install packages by running the following:
+
+```bash
+$ yarn install
+```
+
 ## How it works
 
 We run the dev app and test in 2 different containers, managed by `docker-compose.yml` and `docker-compose.test.yml` respectively.
