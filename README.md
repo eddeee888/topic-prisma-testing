@@ -49,7 +49,11 @@ $ yarn docker:test:run
 # yarn docker:test:prepare
 ```
 
+---
+
 Made with ❤️ by Eddy Nguyen
 https://eddy.works
+
+This repo is extracted from https://github.com/eddeee888/base-app-monorepo
 
 Need coding mentorship? Request a session here: https://jooclass.com/classes/2
