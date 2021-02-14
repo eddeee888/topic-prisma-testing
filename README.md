@@ -4,6 +4,8 @@
 
 This repo has examples of how to do Prisma unit and functional testing with NodeJS and Typescript.
 
+Blog post: https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i
+
 ## Requirements
 
 - Docker
